@@ -7,4 +7,4 @@ Split(['#one', '#two'], {
     gutterStyle: (dimension, gutterSize) => ({
         'flex-basis': `${gutterSize}px`,
     }),
-})
+});
