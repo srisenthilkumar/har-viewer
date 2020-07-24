@@ -1,13 +1,16 @@
-<!DOCTYPE html>
+export const template = (uiBundleObj: any) => {
+    console.log("Access bootstrap outside:", uiBundleObj);
+    const { bootstrapCss, harCss, bootstrapJs, harJs, jqueryJs, splitJs} = uiBundleObj;
+    return `<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View HAR {TITLE} </title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/har.css" />
-    <script src="./js/split.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${bootstrapCss}" />
+    <link rel="stylesheet" type="text/css" href="${harCss}" />
+    <script src="${splitJs}"></script>
 </head>
 
 <body>
@@ -45,9 +48,10 @@
 
 
 
-    <script src="./js/jquery-3.5.1.slim.min.js"></script>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/har.js"></script>
+    <script src="${jqueryJs}"></script>
+    <script src="${bootstrapJs}"></script>
+    <script src=${harJs}></script>
 </body>
 
-</html>
+</html>`;
+};

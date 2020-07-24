@@ -1,5 +1,4 @@
-
-import { template } from '../ui-bundle/template';
+import { template } from "../view/template";
 
 const REQUEST_TEMPLATE = `<h5>Headers</h5>
 Host: api.te-alm-19010182012203326446947.qa.paypal.com
@@ -17,11 +16,18 @@ const REMOTE_CALL_TEMPLATE = `<a class="list-group-item active" href="#">
 </small>
 </a>`;
 
-const render = (filename: string, content: string): string => {
-    let viewtemp = template;
-    viewtemp = viewtemp.replace('{{FILE_NAME}}', filename);
+const render = (
+    filename: string,
+    content: string,
+    uiBundleObj: any
+): string => {
+    let viewtemp = template(uiBundleObj);
+    viewtemp = viewtemp.replace("{{FILE_NAME}}", filename);
     const jsonContent = JSON.parse(content);
-    viewtemp = viewtemp.replace('{{REQUEST_CONTENT}}', jsonContent.log.entries[0].startedDateTime);
+    viewtemp = viewtemp.replace(
+        "{{REQUEST_CONTENT}}",
+        jsonContent.log.entries[0].startedDateTime
+    );
     console.log(viewtemp);
     return viewtemp;
 };

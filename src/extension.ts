@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 var fs = require('fs');
+import * as path from 'path';
 import { render } from './lib/index';
 // import 
 // this method is called when your extension is activated
@@ -25,10 +26,32 @@ export function activate(context: vscode.ExtensionContext) {
 				'har-viewer',
 				'View' + activeDocument.fileName,
 				vscode.ViewColumn.One,
-				{}
+				{
+					enableScripts: true
+				}
 			);
 
-			panel.webview.html = render(activeDocument.fileName, activeDocument.getText());
+			const bootstrapCssPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/css/bootstrap.min.css'));
+			const bootstrapCss = panel.webview.asWebviewUri(bootstrapCssPath);
+
+			const harCssPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'css','har.css'));
+			const harCss = panel.webview.asWebviewUri(harCssPath);
+
+			const harJsPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'js','har.js'));
+			const harJs = panel.webview.asWebviewUri(harJsPath);
+
+			const splitJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
+			const splitJs = panel.webview.asWebviewUri(splitJsPath);
+
+			const bootstrapJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
+			const bootstrapJs = panel.webview.asWebviewUri(bootstrapJsPath);
+
+			const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
+			const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
+
+			const uiBundleObj = { bootstrapCss, harCss, bootstrapJs, harJs, jqueryJs, splitJs};
+
+			panel.webview.html = render(activeDocument.fileName, activeDocument.getText(), uiBundleObj);
 
 			panel.onDidDispose(
 				() => {
