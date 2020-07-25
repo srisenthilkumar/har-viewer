@@ -18,10 +18,6 @@ export function activate(context: vscode.ExtensionContext) {
 		const activeDocument = vscode.window.activeTextEditor?.document;
 
 		if (activeDocument) {
-
-
-			console.log('SRI file name' + activeDocument.fileName);
-			// console.log('SRI content' + activeDocument.getText());
 			let panel = vscode.window.createWebviewPanel(
 				'har-viewer',
 				'View' + activeDocument.fileName,

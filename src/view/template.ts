@@ -1,27 +1,29 @@
 export const template = (uiBundleObj: any) => {
-    console.log("Access bootstrap outside:", uiBundleObj);
-    const { bootstrapCss, harCss, bootstrapJs, harJs, jqueryJs, splitJs} = uiBundleObj;
-    return `<!DOCTYPE html>
+  const {
+    bootstrapCss,
+    harCss,
+    bootstrapJs,
+    harJs,
+    jqueryJs,
+    splitJs,
+  } = uiBundleObj;
+  return `<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View HAR {TITLE} </title>
     <link rel="stylesheet" type="text/css" href="${bootstrapCss}" />
     <link rel="stylesheet" type="text/css" href="${harCss}" />
     <script src="${splitJs}"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">{{FILE_NAME}}</a>
-    </nav>
     <div class="container-fluid">
         <div class="flex">
             <div class="remotecalls shadow" id="one">
                 <div class="list-group">
-                    {{REMOTE_CALL_CONTENT}}
+                    {{URL_PATHNAME}}
                 </div>
             </div>
             <div class="rcdetails shadow" id="two">
@@ -45,8 +47,6 @@ export const template = (uiBundleObj: any) => {
             </div>
         </div>
     </div>
-
-
 
     <script src="${jqueryJs}"></script>
     <script src="${bootstrapJs}"></script>
