@@ -8,10 +8,10 @@ function loadSplitView() {
         gutterStyle: (dimension, gutterSize) => ({
             'flex-basis': `${gutterSize}px`,
         }),
-    });    
+    });
 }
 
-function renderDetailTemplate(){
+function renderDetailTemplate() {
     var template = `<div class="split rcdetails" id="rcdetails">
     <div class="list-group list-group-horizontal" id="myList" role="tablist">
         <a class="list-group-item list-group-item-action active" data-toggle="list" href="#request"
@@ -30,14 +30,32 @@ function renderDetailTemplate(){
         </div>
     </div>
 </div>`;
-return template;
+    return template;
 }
 
-function showDetails(key){
-    if(!$('#rcdetails').length) {
+function renderDetails(key) {
+
+    function generateHtml(data){
+        var keys = Object.entries(data);
+        var content = '';
+        keys.forEach((element,index) => {
+            content += '<li>'+ element + ':' + data[element] + '</li>';
+        });
+        content = '<ul>' + content + '</ul>';
+        return content;
+    }
+    var reqHtml = generateHtml(dt[key].request);
+    var resHtml = generateHtml(dt[key].response);
+    $('#request').html(reqHtml);
+    $('#response').html(resHtml);
+}
+
+function showDetails(key) {
+    if (!$('#rcdetails').length) {
         $('#viewer').append(renderDetailTemplate());
-        setTimeout(function(){
+        setTimeout(function () {
             loadSplitView();
-        },0); 
+            renderDetails(key)
+        }, 0);
     }
 }
