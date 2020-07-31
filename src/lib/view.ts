@@ -6,7 +6,7 @@ Host: api.te-alm-19010182012203326446947.qa.paypal.com
 <hr />
 <h5>Body</h5>`;
 
-const REMOTE_CALL_TEMPLATE = `<a class="list-group-item active" href="#">
+const REMOTE_CALL_TEMPLATE = `<a class="list-group-item active" href="#" onclick="showDetails()">
 <div class="d-flex w-100 justify-content-between">
     <h6 class="mb-1">generate-token</h6>
     <small>2020-06-03T10:11:19.065Z <span class="badge badge-primary badge-pill">POST</span>
@@ -41,7 +41,7 @@ const formNetworkCallList = (entries: any): string => {
     if (!entries) {
         return `<p>Not remote call entries found!</p>`;
     }
-    const remoteCallAnchorTag = `<a class="list-group-item active" href="#">
+    const remoteCallAnchorTag = `<a class="list-group-item active" href="#" onclick="showDetails()">
     <div class="d-flex w-100 justify-content-between">
         <small class="mb-1">
             {{apiName}}

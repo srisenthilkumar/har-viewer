@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/har.css" />
+    <script src="js/split.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="viewer">
+            <div class="col-sm remotecalls" id="remotecalls">
+                <div class="list-group">
+                    <a class="list-group-item active" href="#" onclick="showDetails()">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small class="mb-1">
+                                www.linode.com
+                                <span class="badge badge-primary badge-pill">GET</span>
+                            </small>
+                        </div>
+                    </a><a class="list-group-item active" href="#">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small class="mb-1">
+                                style.min
+                                <span class="badge badge-primary badge-pill">GET</span>
+                            </small>
+                        </div>
+                    </a><a class="list-group-item active" href="#">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small class="mb-1">
+                                video-js.min
+                                <span class="badge badge-primary badge-pill">GET</span>
+                            </small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var dt = {
+            "146.45600004587322_https://www.linode.com/": {
+                "request": {
+                    "method": "GET",
+                    "url": "https://www.linode.com/",
+                    "httpVersion": "HTTP/1.1",
+                    "headers": [
+                        {
+                            "name": "Host",
+                            "value": "www.linode.com"
+                        },
+                        {
+                            "name": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "name": "Cache-Control",
+                            "value": "max-age=0"
+                        },
+                        {
+                            "name": "Upgrade-Insecure-Requests",
+                            "value": "1"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+                        },
+                        {
+                            "name": "Accept",
+                            "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+                        },
+                        {
+                            "name": "Sec-Fetch-Site",
+                            "value": "none"
+                        },
+                        {
+                            "name": "Sec-Fetch-Mode",
+                            "value": "navigate"
+                        },
+                        {
+                            "name": "Sec-Fetch-User",
+                            "value": "?1"
+                        },
+                        {
+                            "name": "Sec-Fetch-Dest",
+                            "value": "document"
+                        },
+                        {
+                            "name": "Accept-Encoding",
+                            "value": "gzip, deflate, br"
+                        },
+                        {
+                            "name": "Accept-Language",
+                            "value": "en-GB,en-US;q=0.9,en;q=0.8"
+                        },
+                        {
+                            "name": "Cookie",
+                            "value": "__cfduid=d944d1310082084a236cd06ada19c0a471596219882; _gcl_au=1.1.128577245.1596220772; _ga=GA1.2.1967324891.1596220772; _gid=GA1.2.594343114.1596220772; _gat_UA-177150-1=1; _gat_UA-177150-30=1; _mkto_trk=id:129-VQU-890&token:_mch-linode.com-1596220772647-33222; IR_gbd=linode.com; _fbp=fb.1.1596220773303.1860228459; _omappvp=IsyQ6lZkgCtd08PM8xK3GVAkKnJc1LIjZ2WXiDSeK3R981eTqjTnzZOFjygYaBj8ZsIJVF9jHls7nMuLToh36qYqFgJwlMBv; IR_10906=1596220778033%7C0%7C1596220772927%7C%7C; _omappvs=1596220778066; omSeen-yedlg8k4bihp5tivszge=1596220780324"
+                        }
+                    ],
+                    "queryString": [],
+                    "cookies": [
+                        {
+                            "name": "__cfduid",
+                            "value": "d944d1310082084a236cd06ada19c0a471596219882",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_gcl_au",
+                            "value": "1.1.128577245.1596220772",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_ga",
+                            "value": "GA1.2.1967324891.1596220772",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_gid",
+                            "value": "GA1.2.594343114.1596220772",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_gat_UA-177150-1",
+                            "value": "1",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_gat_UA-177150-30",
+                            "value": "1",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_mkto_trk",
+                            "value": "id:129-VQU-890&token:_mch-linode.com-1596220772647-33222",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "IR_gbd",
+                            "value": "linode.com",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_fbp",
+                            "value": "fb.1.1596220773303.1860228459",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_omappvp",
+                            "value": "IsyQ6lZkgCtd08PM8xK3GVAkKnJc1LIjZ2WXiDSeK3R981eTqjTnzZOFjygYaBj8ZsIJVF9jHls7nMuLToh36qYqFgJwlMBv",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "IR_10906",
+                            "value": "1596220778033%7C0%7C1596220772927%7C%7C",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "_omappvs",
+                            "value": "1596220778066",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        },
+                        {
+                            "name": "omSeen-yedlg8k4bihp5tivszge",
+                            "value": "1596220780324",
+                            "expires": null,
+                            "httpOnly": false,
+                            "secure": false
+                        }
+                    ],
+                    "headersSize": 1111,
+                    "bodySize": 0
+                },
+                "response": {
+                    "status": 200,
+                    "statusText": "OK",
+                    "httpVersion": "HTTP/1.1",
+                    "headers": [
+                        {
+                            "name": "Date",
+                            "value": "Fri, 31 Jul 2020 18:40:10 GMT"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "text/html; charset=UTF-8"
+                        },
+                        {
+                            "name": "Transfer-Encoding",
+                            "value": "chunked"
+                        },
+                        {
+                            "name": "Link",
+                            "value": "<https://www.linode.com/wp-json/>; rel=\"https://api.w.org/\""
+                        },
+                        {
+                            "name": "Link",
+                            "value": "<https://www.linode.com/>; rel=shortlink"
+                        },
+                        {
+                            "name": "X-Upstream",
+                            "value": "web3"
+                        },
+                        {
+                            "name": "X-Upstream",
+                            "value": "web3"
+                        },
+                        {
+                            "name": "Strict-Transport-Security",
+                            "value": "max-age=31536000"
+                        },
+                        {
+                            "name": "X-Frame-Options",
+                            "value": "DENY"
+                        },
+                        {
+                            "name": "CF-Cache-Status",
+                            "value": "HIT"
+                        },
+                        {
+                            "name": "Age",
+                            "value": "4286"
+                        },
+                        {
+                            "name": "Expires",
+                            "value": "Fri, 31 Jul 2020 22:40:10 GMT"
+                        },
+                        {
+                            "name": "Cache-Control",
+                            "value": "public, max-age=14400"
+                        },
+                        {
+                            "name": "cf-request-id",
+                            "value": "0447c5bc8c0000698927086200000001"
+                        },
+                        {
+                            "name": "Expect-CT",
+                            "value": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\""
+                        },
+                        {
+                            "name": "Vary",
+                            "value": "Accept-Encoding"
+                        },
+                        {
+                            "name": "Server",
+                            "value": "cloudflare"
+                        },
+                        {
+                            "name": "CF-RAY",
+                            "value": "5bb97240e99b6989-BOM"
+                        },
+                        {
+                            "name": "alt-svc",
+                            "value": "h3-27=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+                        },
+                        {
+                            "name": "Connection",
+                            "value": "Keep-Alive"
+                        },
+                        {
+                            "name": "Content-Encoding",
+                            "value": "br"
+                        }
+                    ],
+                    "cookies": [],
+                    "content": {
+                        "size": 99870,
+                        "mimeType": "text/html",
+                        "compression": 86517,
+                        "text": ""
+                    },
+                    "redirectURL": "",
+                    "headersSize": 803,
+                    "bodySize": 13353,
+                    "_transferSize": 14156,
+                    "_error": null
+                }
+            },
+            "16.18799997959286_https://www.linode.com/wp-includes/css/dist/block-library/style.min.css?ver=5.4.2": {
+                "request": {
+                    "method": "GET",
+                    "url": "https://www.linode.com/wp-includes/css/dist/block-library/style.min.css?ver=5.4.2",
+                    "httpVersion": "HTTP/1.1",
+                    "headers": [
+                        {
+                            "name": "Referer",
+                            "value": "https://www.linode.com/"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+                        }
+                    ],
+                    "queryString": [
+                        {
+                            "name": "ver",
+                            "value": "5.4.2"
+                        }
+                    ],
+                    "cookies": [],
+                    "headersSize": 242,
+                    "bodySize": 0
+                },
+                "response": {
+                    "status": 200,
+                    "statusText": "OK",
+                    "httpVersion": "HTTP/1.1",
+                    "headers": [
+                        {
+                            "name": "Date",
+                            "value": "Fri, 31 Jul 2020 18:24:43 GMT"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "text/css"
+                        },
+                        {
+                            "name": "Last-Modified",
+                            "value": "Thu, 30 Apr 2020 13:12:17 GMT"
+                        },
+                        {
+                            "name": "ETag",
+                            "value": "W/\"5eaaceb1-d159\""
+                        },
+                        {
+                            "name": "Expires",
+                            "value": "Sun, 30 Aug 2020 18:24:43 GMT"
+                        },
+                        {
+                            "name": "Cache-Control",
+                            "value": "public, max-age=2592000"
+                        },
+                        {
+                            "name": "X-Frame-Options",
+                            "value": "DENY"
+                        },
+                        {
+                            "name": "CF-Cache-Status",
+                            "value": "HIT"
+                        },
+                        {
+                            "name": "cf-request-id",
+                            "value": "0447b796c10000aafe44152200000001"
+                        },
+                        {
+                            "name": "Expect-CT",
+                            "value": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\""
+                        },
+                        {
+                            "name": "Vary",
+                            "value": "Accept-Encoding"
+                        },
+                        {
+                            "name": "Server",
+                            "value": "cloudflare"
+                        },
+                        {
+                            "name": "CF-RAY",
+                            "value": "5bb95b9e0b90aafe-MAA"
+                        },
+                        {
+                            "name": "alt-svc",
+                            "value": "h3-27=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+                        },
+                        {
+                            "name": "Content-Encoding",
+                            "value": "br"
+                        },
+                        {
+                            "name": "Age",
+                            "value": "70765"
+                        }
+                    ],
+                    "cookies": [],
+                    "content": {
+                        "size": 53593,
+                        "mimeType": "text/css"
+                    },
+                    "redirectURL": "",
+                    "headersSize": 613,
+                    "bodySize": 0,
+                    "_transferSize": 0,
+                    "_error": null
+                }
+            }
+        };
+    </script>
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/har.js"></script>
+</body>
+
+</html>

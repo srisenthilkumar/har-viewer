@@ -39,10 +39,10 @@ export function activate(context: vscode.ExtensionContext) {
 			const splitJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
 			const splitJs = panel.webview.asWebviewUri(splitJsPath);
 
-			const bootstrapJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
+			const bootstrapJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/bootstrap.bundle.min.js'));
 			const bootstrapJs = panel.webview.asWebviewUri(bootstrapJsPath);
 
-			const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
+			const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery-3.5.1.slim.min.js'));
 			const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
 
 			const uiBundleObj = { bootstrapCss, harCss, bootstrapJs, harJs, jqueryJs, splitJs};

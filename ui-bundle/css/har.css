@@ -1,8 +1,6 @@
-.flex {
-    display: flex;
-    flex-direction: row;
+.split, .gutter.gutter-horizontal {
+    float: left;
 }
-
 .gutter.gutter-horizontal {
     cursor: ew-resize;
     background-color: #d4d4d4;
