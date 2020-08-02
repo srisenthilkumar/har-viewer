@@ -1,3 +1,4 @@
+var content;
 function loadSplitView() {
     Split(['#remotecalls', '#rcdetails'], {
         sizes: [25, 75],
@@ -34,7 +35,7 @@ function renderDetailTemplate() {
 }
 
 function renderDetails(key) {
-
+    var reqResObject = content.get(key);
     function generateHtml(data){
         var keys = Object.entries(data);
         var content = '';
@@ -42,15 +43,18 @@ function renderDetails(key) {
             content += '<li>'+ element + ':' + data[element] + '</li>';
         });
         content = '<ul>' + content + '</ul>';
-        return content;
+        return data;
     }
-    var reqHtml = generateHtml(dt[key].request);
-    var resHtml = generateHtml(dt[key].response);
+    var reqHtml = generateHtml(reqResObject.request);
+    var resHtml = generateHtml(reqResObject.response);
     $('#request').html(reqHtml);
     $('#response').html(resHtml);
 }
 
 function showDetails(key) {
+    if(!content) {
+        content = new Map(contentMap);
+    }
     if (!$('#rcdetails').length) {
         $('#viewer').append(renderDetailTemplate());
         setTimeout(function () {

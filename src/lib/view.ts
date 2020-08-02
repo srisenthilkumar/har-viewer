@@ -39,7 +39,7 @@ const formNetworkCallList = (apiList: any): string => {
   if (!apiList) {
     return `<p>No remote call entries found!</p>`;
   }
-  const remoteCallAnchorTag = `<a id={{hashValue}} class="list-group-item active" href="#" onclick="showDetails()">
+  const remoteCallAnchorTag = `<a id={{hashValue}} class="list-group-item active" title={{urlPath}} onclick="showDetails(this.id)">
     <div class="d-flex w-100 justify-content-between">
         <small class="mb-1">
             {{apiName}}
@@ -54,6 +54,7 @@ const formNetworkCallList = (apiList: any): string => {
     (remoteCall: { url: string; method: string; key: string }) => {
       aTagList += remoteCallAnchorTag
         .replace("{{hashValue}}", remoteCall.key)
+        .replace("{{urlPath}}", remoteCall.url)
         .replace("{{apiName}}", trimApiNameFromUrl(remoteCall.url))
         .replace("{{apiMethod}}", remoteCall.method);
     }
