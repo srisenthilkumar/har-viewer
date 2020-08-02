@@ -55,7 +55,7 @@ function showDetails(key) {
         $('#viewer').append(renderDetailTemplate());
         setTimeout(function () {
             loadSplitView();
-            renderDetails(key)
+            renderDetails(key);
         }, 0);
     }
 }

@@ -1,5 +1,5 @@
 import { template } from "../view/template";
-import { URL } from "url";
+import { trimApiNameFromUrl } from "./util";
 
 const REQUEST_TEMPLATE = `<h5>Headers</h5>
 Host: api.te-alm-19010182012203326446947.qa.paypal.com
@@ -18,30 +18,28 @@ const REMOTE_CALL_TEMPLATE = `<a class="list-group-item active" href="#" onclick
 </a>`;
 
 const render = (
-    filename: string,
-    content: string,
-    uiBundleObj: any
+  filename: string,
+  reqAPIs: Array<Object>,
+  contentMap: string,
+  uiBundleObj: any
 ): string => {
-    let viewtemp: string = template(uiBundleObj);
-    viewtemp = viewtemp.replace("{{FILE_NAME}}", filename);
-    const jsonContent = JSON.parse(content);
-    // viewtemp = viewtemp.replace(
-    //     "{{REQUEST_CONTENT}}",
-    //     jsonContent.log.entries[0].startedDateTime
-    // );
-    viewtemp = viewtemp.replace(
-        "{{URL_PATHNAME}}",
-        formNetworkCallList(jsonContent.log.entries)
-    );
-    console.log(viewtemp);
+  console.log(contentMap);
+  let viewtemp: string = template(uiBundleObj);
+  viewtemp = viewtemp.replace("{{FILE_NAME}}", filename);
+  //     "{{REQUEST_CONTENT}}",
+  //     jsonContent.log.entries[0].startedDateTime
+  // );
+  viewtemp = viewtemp
+    .replace("{{URL_PATHNAME}}", formNetworkCallList(reqAPIs))
+    .replace("{{contentMap}}", `<script> var contentMap = ${contentMap}</script>`);
     return viewtemp;
 };
 
-const formNetworkCallList = (entries: any): string => {
-    if (!entries) {
-        return `<p>Not remote call entries found!</p>`;
-    }
-    const remoteCallAnchorTag = `<a class="list-group-item active" href="#" onclick="showDetails()">
+const formNetworkCallList = (apiList: any): string => {
+  if (!apiList) {
+    return `<p>No remote call entries found!</p>`;
+  }
+  const remoteCallAnchorTag = `<a id={{hashValue}} class="list-group-item active" href="#" onclick="showDetails()">
     <div class="d-flex w-100 justify-content-between">
         <small class="mb-1">
             {{apiName}}
@@ -50,33 +48,17 @@ const formNetworkCallList = (entries: any): string => {
     </div>
     </a>`;
 
-    let aTagList = "";
+  let aTagList = "";
 
-    entries.forEach(
-        (remoteCall: { request: { url: string; method: string } }) => {
-            aTagList += remoteCallAnchorTag
-                .replace("{{apiName}}", trimApiNameFromUrl(remoteCall.request.url))
-                .replace("{{apiMethod}}", remoteCall.request.method);
-        }
-    );
-    console.log("aTagList: ", aTagList);
-    return aTagList;
-};
-
-const trimApiNameFromUrl = (url: string): string => {
-    const urlObj = new URL(url);
-    const pathname: string = urlObj.pathname;
-    if (!pathname || pathname === "/") {
-        return urlObj.hostname;
+  apiList.forEach(
+    (remoteCall: { url: string; method: string; key: string }) => {
+      aTagList += remoteCallAnchorTag
+        .replace("{{hashValue}}", remoteCall.key)
+        .replace("{{apiName}}", trimApiNameFromUrl(remoteCall.url))
+        .replace("{{apiMethod}}", remoteCall.method);
     }
-    let filePath = pathname.substring(
-        pathname.lastIndexOf("/") + 1,
-        pathname.length
-    );
-    if (filePath.includes(".")) {
-        filePath = filePath.substring(0, filePath.lastIndexOf("."));
-    }
-    return filePath;
+  );
+  return aTagList;
 };
 
 export { render };

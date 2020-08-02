@@ -29,9 +29,10 @@ export const template = (uiBundleObj: any) => {
         </div>
     </div>
 
+    {{contentMap}}
     <script src="${jqueryJs}"></script>
     <script src="${bootstrapJs}"></script>
-    <script src=${harJs}></script>
+    <script src="${harJs}"></script>
 </body>
 
 </html>`;
