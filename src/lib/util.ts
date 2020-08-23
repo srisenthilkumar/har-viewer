@@ -39,6 +39,7 @@ export const trimApiNameFromUrl = (url: string): string => {
 
 const sanitizeObject = (object: any) => {
     return jsesc(object, {
-        escapeEverything: true
+        //escapeEverything: false
+        'isScriptContext': true
     });
 };
