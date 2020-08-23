@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 var fs = require('fs');
 import * as path from 'path';
 import { render } from './lib/index';
+import { getContentMap } from './lib/util';
 // import 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -16,7 +17,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let preview = vscode.commands.registerCommand('har-viewer.preview', () => {
 		const activeDocument = vscode.window.activeTextEditor?.document;
+		const fileName = activeDocument?.fileName;
+		const fileContent = activeDocument?.getText();
 
+		if(!fileContent) {
+			vscode.window.showErrorMessage(fileName + " doesn't seem to be valid file");
+			return;
+		}
+
+		const {reqAPIs, contentMap} = getContentMap(fileContent);
+	
 		if (activeDocument) {
 			let panel = vscode.window.createWebviewPanel(
 				'har-viewer',
@@ -47,7 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 			const uiBundleObj = { bootstrapCss, harCss, bootstrapJs, harJs, jqueryJs, splitJs};
 
-			panel.webview.html = render(activeDocument.fileName, activeDocument.getText(), uiBundleObj);
+			panel.webview.html = render(activeDocument.fileName, reqAPIs, contentMap, uiBundleObj);
 
 			panel.onDidDispose(
 				() => {
