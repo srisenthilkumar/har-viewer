@@ -1,3 +1,13 @@
+body{
+    background-color: #FFF;
+    color: #485057;
+} 
+a {
+
+}
+#viewer {
+    padding-top: 10px;
+}
 .split, .gutter.gutter-horizontal {
     float: left;
 }
@@ -6,23 +16,25 @@
     background-color: #d4d4d4;
 }
 
-.remotecalls {}
+.remotecalls {
+    padding-right: 0px;
+}
 
 .remotecalls .list-group-item.active {
-    background-color: rgb(255, 255, 255);
-    color: #485057;
-    border-color: rgb(255, 255, 255);
-    border-left: 5px solid #007bff;
-    border-bottom-color: rgba(0, 0, 0, .125);
+    background-color: rgb(0, 0, 0, 0.25);
 }
 .remotecalls .list-group-item.active:hover {
-    border-left: 5px solid #007bff;
+    /* border-left: 5px solid #007bff; */
 }
 .remotecalls .list-group-item {
-    border-left: 5px solid rgb(255, 255, 255);
+    border-left: 0;
+    border-right: 0;
+    background-color: rgba(0, 0, 0, 0.08);
+    /* border-left: 5px solid rgb(255, 255, 255); */
+    /* border-bottom-color: rgba(0, 0, 0, .125); */
 }
 .remotecalls .list-group-item:hover {
-    border-left: 5px solid #5d5d5d;
+    /* border-left: 5px solid #5d5d5d; */
 }
 
 
