@@ -13,20 +13,15 @@ export const template = (uiBundleObj: any) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="${bootstrapCss}" />
     <link rel="stylesheet" type="text/css" href="${harCss}" />
     <script src="${splitJs}"></script>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row" id="viewer">
-            <div class="col-sm remotecalls" id="remotecalls">
-                <div class="list-group">
-                    {{URL_PATHNAME}}
-                </div>
+    <div id="viewer">
+            <div class="remotecalls" id="remotecalls">
+                {{URL_PATHNAME}}
             </div>
-        </div>
     </div>
 
     {{contentMap}}

@@ -1,84 +1,58 @@
-body{
-    background-color: #FFF;
-    color: #485057;
-} 
+body {
+    background-color: var(--vscode-editor-background);
+    color: var(--vscode-editor-foreground);
+    font-family: var(--vscode-font-family);
+    font-weight: var(--vscode-font-weight);
+    font-size: var(--vscode-font-size);
+    margin: 0;
+    padding: 0 20px;
+}
+.badge {
+    background-color: var(--vscode-activityBarBadge-background);
+    color: var(--vscode-activityBarBadge-foreground);
+    border-radius: 5px;
+}
+.list {
+    padding: 5px 5px;
+    display: block;
+    width: 100%;
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    /* line-height: 150%; */
+    margin: 2px 2px;
+}
+.list:hover, .list.active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 a {
-
+    cursor: pointer;
 }
 #viewer {
     padding-top: 10px;
-}
-.split, .gutter.gutter-horizontal {
-    float: left;
-}
-.gutter.gutter-horizontal {
-    cursor: ew-resize;
-    background-color: #d4d4d4;
+    display: flex;
+    flex-direction: row;
 }
 
 .remotecalls {
     padding-right: 0px;
 }
 
-.remotecalls .list-group-item.active {
-    background-color: rgb(0, 0, 0, 0.25);
-}
-.remotecalls .list-group-item.active:hover {
-    /* border-left: 5px solid #007bff; */
-}
-.remotecalls .list-group-item {
-    border-left: 0;
-    border-right: 0;
-    background-color: rgba(0, 0, 0, 0.08);
-    /* border-left: 5px solid rgb(255, 255, 255); */
-    /* border-bottom-color: rgba(0, 0, 0, .125); */
-}
-.remotecalls .list-group-item:hover {
-    /* border-left: 5px solid #5d5d5d; */
+.rcdetails {
+    white-space: -webkit-pre-wrap;
+    /* Chrome & Safari */
+    white-space: pre-wrap;
+    /* CSS3 */
+    word-break: break-all;
+    white-space: normal;
+    float: left;
 }
 
-
-
-
-
-.rcdetails{}
-
-.rcdetails .list-group-item.active {
-    background-color: rgb(255, 255, 255);
-    color: #485057;
-    border-color: rgb(255, 255, 255);
-    border-top: 2px solid #007bff;
-    border-right: 2px solid #007bff;
-    border-left: 2px solid #007bff;
-}
-.rcdetails .list-group-item.active:hover {
-    border-color: rgb(255, 255, 255);
-    border-top: 2px solid #007bff;
-    border-right: 2px solid #007bff;
-    border-left: 2px solid #007bff;
-}
-.rcdetails .list-group-item {
-    border-color: rgb(255, 255, 255);
-    border-bottom: 2px solid #007bff;
-    background-color: #F8f8f8;
-}
-.rcdetails .list-group-item:hover {
-    border-color: rgb(255, 255, 255);
-    border-bottom: 2px solid #007bff;
-}
 .rcdetails .tab-content {
     padding: 10px 15px;
 }
-.shadow {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-}
 
-.list-group-item.active:hover {
-    text-decoration: none;
-}
-
-.list-group-item {
-    border-radius: 0px !important;
+.gutter.gutter-horizontal {
+    cursor: ew-resize;
+    background-color: var(--vscode-editorOverviewRuler-border);
 }
 
 .long-content {
