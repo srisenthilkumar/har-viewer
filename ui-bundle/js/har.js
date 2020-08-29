@@ -37,13 +37,14 @@ function renderDetailTemplate() {
 function renderDetails(key) {
     var reqResObject = content.get(key);
     function generateHtml(data){
+        console.log('SRI JSON Parsing', data);
         var keys = Object.entries(data);
         var content = '';
-        keys.forEach((element,index) => {
-            content += '<li>'+ element + ':' + data[element] + '</li>';
+        keys.forEach((element) => {
+            content += '<li>'+ element[0] + ':' + element[1] + '</li>';
         });
         content = '<ul>' + content + '</ul>';
-        return data;
+        return content;
     }
     var reqHtml = generateHtml(reqResObject.request);
     var resHtml = generateHtml(reqResObject.response);
@@ -61,5 +62,7 @@ function showDetails(key) {
             loadSplitView();
             renderDetails(key);
         }, 0);
+    } else {
+        renderDetails(key);
     }
 }

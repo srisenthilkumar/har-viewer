@@ -13,8 +13,8 @@ export const getContentMap = (content: string) => {
             reqAPIs.push({url: element.request.url, method: element.request.method, key});
             contentMap.set(key, {
                 startedDateTime: element.startedDateTime,
-                request: sanitizeObject(element.request),
-                response: sanitizeObject(element.response)
+                request: sanitizeValues(element.request),
+                response: sanitizeValues(element.response)
             });
         }
     );
@@ -42,4 +42,17 @@ const sanitizeObject = (object: any) => {
         //escapeEverything: false
         'isScriptContext': true
     });
+};
+
+
+const sanitizeValues = (object: any) => {
+    var entries = Object.entries(object);
+    var objectParsed:any = {};
+    entries.forEach((element:any) => {
+            objectParsed[element[0]] = jsesc(element[1], {
+                //escapeEverything: false
+                'isScriptContext': true
+            });
+        });
+    return objectParsed;
 };
