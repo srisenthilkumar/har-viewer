@@ -10,7 +10,7 @@ export const getContentMap = (content: string) => {
     data.log.entries.forEach(
         (element: { startedDateTime: any; request: any; response: any }) => {
             const key = crypto.randomBytes(16).toString("hex");
-            reqAPIs.push({url: element.request.url, method: element.request.method, key});
+            reqAPIs.push({ url: element.request.url, method: element.request.method, key });
             contentMap.set(key, {
                 startedDateTime: element.startedDateTime,
                 request: sanitizeValues(element.request),
@@ -18,7 +18,7 @@ export const getContentMap = (content: string) => {
             });
         }
     );
-    return {reqAPIs, contentMap: JSON.stringify([...contentMap])};
+    return { reqAPIs, contentMap: JSON.stringify([...contentMap]) };
 };
 
 export const trimApiNameFromUrl = (url: string): string => {
@@ -46,13 +46,18 @@ const sanitizeObject = (object: any) => {
 
 
 const sanitizeValues = (object: any) => {
+    const keys = ['headers', 'cookies', 'queryString'];
     var entries = Object.entries(object);
-    var objectParsed:any = {};
-    entries.forEach((element:any) => {
+    var objectParsed: any = {};
+    entries.forEach((element: any) => {
+        if (keys.indexOf(element[0]) !== -1) {
+            objectParsed[element[0]] = element[1];
+        } else {
             objectParsed[element[0]] = jsesc(element[1], {
                 //escapeEverything: false
                 'isScriptContext': true
             });
-        });
+        }
+    });
     return objectParsed;
 };
