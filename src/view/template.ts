@@ -19,7 +19,7 @@ export const template = (uiBundleObj: any) => {
 
 <body>
     <div id="viewer">
-            <div class="remotecalls" id="remotecalls">
+            <div class="remotecalls" id="remotecalls" style="width: 100%">
                 {{URL_PATHNAME}}
             </div>
     </div>

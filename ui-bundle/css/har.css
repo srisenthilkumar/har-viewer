@@ -39,6 +39,10 @@ a {
     overflow-x: hidden;
 }
 
+/* width */
+.remotecalls::-webkit-scrollbar,.tab-content::-webkit-scrollbar {
+    width: 2px;
+  }
 .rcdetails {
     white-space: -webkit-pre-wrap;
     /* Chrome & Safari */
