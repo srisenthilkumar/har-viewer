@@ -15,16 +15,16 @@ function loadSplitView() {
 function switchTab(currentObj, showObj, hideObj) {
     $('#' + showObj).show();
     $('#' + hideObj).hide();
-    $('#myList a').removeClass('active');
+    $('.tab a').removeClass('active');
     $(currentObj).addClass('active');
     return false;
 }
 
 function renderDetailTemplate() {
     var template = `<div class="split rcdetails" id="rcdetails">
-                        <div>
-                            <a class="list-group-item list-group-item-action active" onclick="switchTab(this, 'request','response')">Request</a>
-                            <a class="list-group-item list-group-item-action" onclick="switchTab(this, 'response','request')">Response</a>
+                        <div class="tab">
+                            <a class="active" onclick="switchTab(this, 'request','response')">Request</a>
+                            <a class="" onclick="switchTab(this, 'response','request')">Response</a>
                         </div>
                         <div class="tab-content">
                             <div id="request">
@@ -37,31 +37,33 @@ function renderDetailTemplate() {
                     </div>`;
     return template;
 }
+
 function toggle(obj) {
     if ($(obj).hasClass('active')) {
         $(obj).parent().find('div').hide();
+        $(obj).html('+');
         $(obj).removeClass('active');
     } else {
         $(obj).parent().find('div').show();
+        $(obj).html('-');
         $(obj).addClass('active');
     }
-
 }
 
 function buildHtmlBasedOnKey(element) {
     const keys = ['headers', 'cookies', 'queryString'];
     // Generate HTML with expand/collapse option
     var key = element[0];
-    if (keys.indexOf(key) !== -1) {
+    if (keys.indexOf(key) !== -1 && element[1].length > 0) {
         var values = element[1];
         var innerContent = '';
         values.forEach((item) => {
-            innerContent += '<p><strong>' + item.name + '</strong>:' + item.value + '</p>';
+            innerContent += '<p class="code">' + item.name + '</strong> : ' + item.value + '</p>';
         });
 
-        return `<div><a onclick="toggle(this)"> + </a> ${key} <br/> <div> ${innerContent}</div> </div>`;
+        return `<div><a class="active" onclick="toggle(this)"> - </a> ${key} <br/> <div style="padding-left: 30px"> ${innerContent}</div> </div>`;
     }
-    return '<p> <strong>' + element[0] + '</strong>:' + element[1] + '</p>';
+    return '<p class="code">&nbsp;&nbsp; ' + element[0] + ' : ' + element[1] + '</p>';
 }
 
 function renderDetails(key) {
@@ -79,10 +81,6 @@ function renderDetails(key) {
     var resHtml = generateHtml(reqResObject.response);
     $('#request').html(reqHtml);
     $('#response').html(resHtml);
-    setTimeout(function(){
-        $('#response').hide(resHtml);
-    });
-    
 }
 
 function showDetails(key) {
@@ -94,6 +92,9 @@ function showDetails(key) {
         setTimeout(function () {
             loadSplitView();
             renderDetails(key);
+            setTimeout(function () {
+                $('#response').hide(resHtml);
+            });
         }, 0);
     } else {
         renderDetails(key);

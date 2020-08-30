@@ -34,6 +34,9 @@ a {
 
 .remotecalls {
     padding-right: 0px;
+    max-height: 98vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .rcdetails {
@@ -43,17 +46,33 @@ a {
     /* CSS3 */
     word-break: break-all;
     white-space: normal;
-    float: left;
 }
 
 .rcdetails .tab-content {
     padding: 10px 15px;
+    max-height: 90vh;
+    overflow-y: scroll;
 }
 
 .gutter.gutter-horizontal {
     cursor: ew-resize;
-    background-color: var(--vscode-editorOverviewRuler-border);
+    background-color: var(--vscode-dropdown-background);
 }
+
+.tab {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.tab > a {
+    padding: 10px 10px;
+    background-color: var(--vscode-titleBar-activeBackground);
+}
+.tab > a.active {
+    background-color: var(--vscode-titleBar-inactiveBackground);
+}
+
 
 .long-content {
     /* white-space: nowrap; */
