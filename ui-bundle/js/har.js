@@ -58,12 +58,16 @@ function buildHtmlBasedOnKey(element) {
         var values = element[1];
         var innerContent = '';
         values.forEach((item) => {
-            innerContent += '<p class="code">' + item.name + '</strong> : ' + item.value + '</p>';
+            innerContent += '<p class="code">' + item.name + ' : <code>' + item.value + '</code></p>';
         });
 
         return `<div><a class="active" onclick="toggle(this)"> - </a> ${key} <br/> <div style="padding-left: 30px"> ${innerContent}</div> </div>`;
     }
-    return '<p class="code">&nbsp;&nbsp; ' + element[0] + ' : ' + element[1] + '</p>';
+    const codeStyleKey = ['postData', 'content'];
+    if (codeStyleKey.indexOf(element[0]) !== -1) {
+        return '<p class="code">&nbsp;&nbsp; ' + element[0] + ' : <code>' + element[1] + '</code></p>';
+    }
+    return '<p class="code">&nbsp;&nbsp; ' + element[0] + ' : <code>' + element[1] + '</code></p>';
 }
 
 function renderDetails(key) {
@@ -93,7 +97,7 @@ function showDetails(key) {
             loadSplitView();
             renderDetails(key);
             setTimeout(function () {
-                $('#response').hide(resHtml);
+                $('#response').hide();
             });
         }, 0);
     } else {
@@ -102,3 +106,48 @@ function showDetails(key) {
     $('#' + key).parent().find('a').removeClass('active');
     $('#' + key).addClass('active');
 }
+
+var CURRENT_MARKERS = [];
+var MARKER_INDEX = 0;
+
+$(function () {
+
+    var mark = function () {
+
+        // Read the keyword
+        var keyword = $("input[name='keyword']").val();
+
+        // Remove previous marked elements and mark
+        // the new keyword inside the context
+        $("#viewer").unmark({
+            done: function () {
+                CURRENT_MARKERS = [];
+                MARKER_INDEX = 0;
+                $("#viewer").mark(keyword, { each: function(obj){
+                    console.log(obj);
+                    CURRENT_MARKERS.push(obj);
+                }});
+            }
+        });
+    };
+
+    $("input[name='keyword']").on("input", mark);
+    $("input[name='keyword']").on("keypress", function(e){
+        if(e.which == 13){
+            MARKER_INDEX = MARKER_INDEX >= CURRENT_MARKERS.length ? 0 : MARKER_INDEX;
+            CURRENT_MARKERS[MARKER_INDEX].scrollIntoView();
+            MARKER_INDEX++;
+        }
+    });
+});
+
+function closeFinder(){
+    $(".finder").hide();
+}
+$(document).keypress('f', function(e){
+    if(event.ctrlKey) {
+        $(".finder").show();
+        $(".finder input").focus();
+    }
+});
+$(".finder").hide();

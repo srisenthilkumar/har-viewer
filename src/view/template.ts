@@ -1,11 +1,10 @@
 export const template = (uiBundleObj: any) => {
   const {
-    bootstrapCss,
     harCss,
-    bootstrapJs,
     harJs,
     jqueryJs,
     splitJs,
+    jqueryMarkJs
   } = uiBundleObj;
   return `<!DOCTYPE html>
 <html lang="en">
@@ -18,6 +17,9 @@ export const template = (uiBundleObj: any) => {
 </head>
 
 <body>
+    <div class="finder">
+      <input type="text" name="keyword" placeholder="search..."> &nbsp;<a onclick="closeFinder()"> X </a>
+    </div>
     <div id="viewer">
             <div class="remotecalls" id="remotecalls" style="width: 100%">
                 {{URL_PATHNAME}}
@@ -26,6 +28,7 @@ export const template = (uiBundleObj: any) => {
 
     {{contentMap}}
     <script src="${jqueryJs}"></script>
+    <script src="${jqueryMarkJs}"></script>
     <script src="${harJs}"></script>
 </body>
 

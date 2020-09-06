@@ -52,10 +52,13 @@ export function activate(context: vscode.ExtensionContext) {
 			const bootstrapJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/bootstrap.bundle.min.js'));
 			const bootstrapJs = panel.webview.asWebviewUri(bootstrapJsPath);
 
+			const jqueryMarkJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery.mark.js'));
+			const jqueryMarkJs = panel.webview.asWebviewUri(jqueryMarkJsPath);
+
 			const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery-3.5.1.slim.min.js'));
 			const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
 
-			const uiBundleObj = { bootstrapCss, harCss, bootstrapJs, harJs, jqueryJs, splitJs};
+			const uiBundleObj = { harCss, harJs, jqueryJs, splitJs, jqueryMarkJs};
 
 			panel.webview.html = render(activeDocument.fileName, reqAPIs, contentMap, uiBundleObj);
 

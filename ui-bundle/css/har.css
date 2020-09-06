@@ -7,10 +7,31 @@ body {
     margin: 0;
     padding: 0 20px;
 }
+.finder {
+    display: block;
+    position: fixed;
+    width: 250px;
+    right: 5px;
+    top: 5px;
+    padding: 10px 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.finder input {
+    width: 220px;
+    padding: 5px 5px;
+    background-color: var(--vscode-editor-background);
+    color: var(--vscode-editor-foreground);
+    outline: none;
+    border: none;
+}
 .badge {
     background-color: var(--vscode-activityBarBadge-background);
     color: var(--vscode-activityBarBadge-foreground);
     border-radius: 5px;
+}
+mark{
+    background: orange;
+    color: black;
 }
 .list {
     padding: 5px 5px;
