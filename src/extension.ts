@@ -37,9 +37,6 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 			);
 
-			const bootstrapCssPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/css/bootstrap.min.css'));
-			const bootstrapCss = panel.webview.asWebviewUri(bootstrapCssPath);
-
 			const harCssPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'css','har.css'));
 			const harCss = panel.webview.asWebviewUri(harCssPath);
 
@@ -49,16 +46,16 @@ export function activate(context: vscode.ExtensionContext) {
 			const splitJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
 			const splitJs = panel.webview.asWebviewUri(splitJsPath);
 
-			const bootstrapJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/bootstrap.bundle.min.js'));
-			const bootstrapJs = panel.webview.asWebviewUri(bootstrapJsPath);
-
 			const jqueryMarkJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery.mark.js'));
 			const jqueryMarkJs = panel.webview.asWebviewUri(jqueryMarkJsPath);
 
 			const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery-3.5.1.slim.min.js'));
 			const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
 
-			const uiBundleObj = { harCss, harJs, jqueryJs, splitJs, jqueryMarkJs};
+			const lzutf8Path = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/lzutf8.min.js'));
+			const lzutf8Js = panel.webview.asWebviewUri(lzutf8Path);
+			
+			const uiBundleObj = { harCss, harJs, jqueryJs, splitJs, jqueryMarkJs, lzutf8Js};
 
 			panel.webview.html = render(activeDocument.fileName, reqAPIs, contentMap, uiBundleObj);
 

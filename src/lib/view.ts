@@ -39,7 +39,7 @@ const render = (
 
   viewtemp = viewtemp.replace("{{FILE_NAME}}", filename)
     .replace("{{URL_PATHNAME}}", buildNetworkCallsHtml(reqAPIs))
-    .replace("{{contentMap}}", `<script> var contentMap = ${contentMap}</script>`);
+    .replace("{{contentMap}}", `<script> var INIT_LOAD = ${contentMap}</script>`);
 
   return viewtemp;
 };

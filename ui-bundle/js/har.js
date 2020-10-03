@@ -1,4 +1,4 @@
-var content;
+
 function loadSplitView() {
     Split(['#remotecalls', '#rcdetails'], {
         sizes: [25, 75],
@@ -11,7 +11,14 @@ function loadSplitView() {
         }),
     });
 }
+function escapeHTML(value) {
 
+    return value.replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
 function switchTab(currentObj, showObj, hideObj) {
     $('#' + showObj).show();
     $('#' + hideObj).hide();
@@ -50,33 +57,40 @@ function toggle(obj) {
     }
 }
 
-function buildHtmlBasedOnKey(element) {
-    const keys = ['headers', 'cookies', 'queryString'];
-    // Generate HTML with expand/collapse option
-    var key = element[0];
-    if (keys.indexOf(key) !== -1 && element[1].length > 0) {
-        var values = element[1];
-        var innerContent = '';
-        values.forEach((item) => {
-            innerContent += '<p class="code">' + item.name + ' : <code>' + item.value + '</code></p>';
-        });
+function buildHtml(key, value) {
+    const content = escapeHTML(value);
+    if(content.length > 3000){
+        return '<p class="code"> &nbsp;&nbsp; ' + key + ' : <textarea col="20" row="100">' + escapeHTML(value) + '</textarea></p>';
+    }
+    return '<p class="code"> &nbsp;&nbsp; ' + key + ' : <span>' + escapeHTML(value) + '</span></p>';
+}
 
-        return `<div><a class="active" onclick="toggle(this)"> - </a> ${key} <br/> <div style="padding-left: 30px"> ${innerContent}</div> </div>`;
+function decompress(element, parentKey) {
+    const formatKeys = ['headers', 'cookies', 'queryString'];
+
+    if (Array.isArray(element[1])) {
+        return buildHtml(element[0], LZUTF8.decompress(new Uint8Array(element[1])));
+    } else if (formatKeys.indexOf(parentKey) !== -1) {
+        return buildHtml(LZUTF8.decompress(new Uint8Array(element[1].name)), LZUTF8.decompress(new Uint8Array(element[1].value)));
     }
-    const codeStyleKey = ['postData', 'content'];
-    if (codeStyleKey.indexOf(element[0]) !== -1) {
-        return '<p class="code">&nbsp;&nbsp; ' + element[0] + ' : <code>' + element[1] + '</code></p>';
+    else {
+        var keys = Object.entries(element[1]);
+        var content = '';
+
+        keys.forEach((childElement) => {
+            content += decompress(childElement, element[0]);
+        });
+        return `<div> ${keys.length !== 0 ? '<a class="active" onclick="toggle(this)"> - </a>' : '&nbsp;&nbsp;'} ${element[0]} : <br/> <div style="padding-left: 30px"> ${content}</div> </div>`;
     }
-    return '<p class="code">&nbsp;&nbsp; ' + element[0] + ' : <code>' + element[1] + '</code></p>';
 }
 
 function renderDetails(key) {
-    var reqResObject = content.get(key);
+    var reqResObject = INIT_LOAD[key];
     function generateHtml(data) {
         var keys = Object.entries(data);
         var content = '';
         keys.forEach((element) => {
-            content += buildHtmlBasedOnKey(element);
+            content += decompress(element);
         });
         content = '<div class="innersection">' + content + '</div>';
         return content;
@@ -88,10 +102,9 @@ function renderDetails(key) {
 }
 
 function showDetails(key) {
-    if (!content) {
-        content = new Map(contentMap);
-    }
-    if (!$('#rcdetails').length) {
+    if ($('#rcdetails').length) {
+        renderDetails(key);
+    } else {
         $('#viewer').append(renderDetailTemplate());
         setTimeout(function () {
             loadSplitView();
@@ -99,9 +112,7 @@ function showDetails(key) {
             setTimeout(function () {
                 $('#response').hide();
             });
-        }, 0);
-    } else {
-        renderDetails(key);
+        }, 0);   
     }
     $('#' + key).parent().find('a').removeClass('active');
     $('#' + key).addClass('active');
@@ -123,17 +134,18 @@ $(function () {
             done: function () {
                 CURRENT_MARKERS = [];
                 MARKER_INDEX = 0;
-                $("#viewer").mark(keyword, { each: function(obj){
-                    console.log(obj);
-                    CURRENT_MARKERS.push(obj);
-                }});
+                $("#viewer").mark(keyword, {
+                    each: function (obj) {
+                        CURRENT_MARKERS.push(obj);
+                    }
+                });
             }
         });
     };
 
     $("input[name='keyword']").on("input", mark);
-    $("input[name='keyword']").on("keypress", function(e){
-        if(e.which == 13){
+    $("input[name='keyword']").on("keypress", function (e) {
+        if (e.which === 13) {
             MARKER_INDEX = MARKER_INDEX >= CURRENT_MARKERS.length ? 0 : MARKER_INDEX;
             CURRENT_MARKERS[MARKER_INDEX].scrollIntoView();
             MARKER_INDEX++;
@@ -141,11 +153,11 @@ $(function () {
     });
 });
 
-function closeFinder(){
+function closeFinder() {
     $(".finder").hide();
 }
-$(document).keypress('f', function(e){
-    if(event.ctrlKey) {
+$(document).keypress('f', function (e) {
+    if (event.ctrlKey) {
         $(".finder").show();
         $(".finder input").focus();
     }

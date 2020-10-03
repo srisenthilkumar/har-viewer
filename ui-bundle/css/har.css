@@ -72,6 +72,22 @@ a {
     word-break: break-all;
     white-space: normal;
 }
+p.code span {
+    white-space: pre-wrap;
+    /* CSS3 */
+    word-break: break-all;
+    color: var(--vscode-textPreformat-foreground);
+}
+
+p.code textarea{
+    width: 95%;
+    max-width: 95%;
+    min-width: 95%;
+    height: 300px;
+    margin-left: 45px;
+    color: var(--vscode-textPreformat-foreground);
+    background-color: var(--vscode-editor-background);
+}
 
 .rcdetails .tab-content {
     padding: 10px 15px;
@@ -98,6 +114,14 @@ a {
     background-color: var(--vscode-titleBar-inactiveBackground);
 }
 
+.tab > a.active::before {
+    content: "> ";
+    border-top: 2px solid var(--vscode-textLink-activeForeground); 
+}
+/* 
+.tab > a.active::after {
+    content: " < ";
+} */
 
 .long-content {
     /* white-space: nowrap; */

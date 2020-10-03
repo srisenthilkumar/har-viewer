@@ -4,7 +4,8 @@ export const template = (uiBundleObj: any) => {
     harJs,
     jqueryJs,
     splitJs,
-    jqueryMarkJs
+    jqueryMarkJs,
+    lzutf8Js
   } = uiBundleObj;
   return `<!DOCTYPE html>
 <html lang="en">
@@ -29,7 +30,9 @@ export const template = (uiBundleObj: any) => {
     {{contentMap}}
     <script src="${jqueryJs}"></script>
     <script src="${jqueryMarkJs}"></script>
+    <script src="${lzutf8Js}"></script>
     <script src="${harJs}"></script>
+    
 </body>
 
 </html>`;

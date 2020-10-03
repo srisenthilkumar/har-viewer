@@ -1,9 +1,9 @@
 import * as crypto from "crypto";
 import { URL } from "url";
-import * as jsesc from "jsesc";
+const LZUTF8 = require("lzutf8");
 
 export const getContentMap = (content: string) => {
-    let contentMap = new Map();
+    let contentMap: any = {};
     const data = JSON.parse(content);
     let reqAPIs: Array<Object> = [];
 
@@ -11,14 +11,14 @@ export const getContentMap = (content: string) => {
         (element: { startedDateTime: any; request: any; response: any }) => {
             const key = crypto.randomBytes(16).toString("hex");
             reqAPIs.push({ url: element.request.url, method: element.request.method, key });
-            contentMap.set(key, {
+            contentMap[key] = {
                 startedDateTime: element.startedDateTime,
                 request: sanitizeValues(element.request),
                 response: sanitizeValues(element.response)
-            });
+            };
         }
     );
-    return { reqAPIs, contentMap: JSON.stringify([...contentMap]) };
+    return { reqAPIs, contentMap: JSON.stringify(contentMap) };
 };
 
 export const trimApiNameFromUrl = (url: string): string => {
@@ -37,27 +37,18 @@ export const trimApiNameFromUrl = (url: string): string => {
     return filePath;
 };
 
-const sanitizeObject = (object: any) => {
-    return jsesc(object, {
-        //escapeEverything: false
-        'isScriptContext': true
-    });
-};
-
-
 const sanitizeValues = (object: any) => {
-    const keys = ['headers', 'cookies', 'queryString'];
-    var entries = Object.entries(object);
     var objectParsed: any = {};
+
+    var entries = Object.entries(object);
+
     entries.forEach((element: any) => {
-        if (keys.indexOf(element[0]) !== -1) {
-            objectParsed[element[0]] = element[1];
+        if (typeof element[1] === "string") {
+            objectParsed[element[0]] = Array.from(LZUTF8.compress(element[1]));
         } else {
-            objectParsed[element[0]] = jsesc(element[1], {
-                //escapeEverything: false
-                'isScriptContext': true
-            });
+            objectParsed[element[0]] = sanitizeValues(element[1]);
         }
     });
+
     return objectParsed;
 };
