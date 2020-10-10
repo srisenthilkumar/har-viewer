@@ -4,6 +4,22 @@
 	"description": "HTTP Archive Viewer",
 	"version": "0.0.1-beta.0",
 	"publisher": "unclebeast",
+	"author": {
+		"name": "Sri senthil kumar",
+		"email": "asrisenthilkumar@gmail.com"
+	},
+	"contributors": [
+		{
+			"name": "Sri senthil kumar",
+			"email": "asrisenthilkumar@gmail.com"
+		},
+		{
+		  "name": "Naveen",
+		  "email": "",
+		  "url": ""
+		}
+	],
+	"bugs": "https://github.com/srisenthilkumar/har-viewer/issues",
 	"engines": {
 		"vscode": "^1.23.0"
 	},
