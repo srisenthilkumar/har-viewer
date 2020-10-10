@@ -2,7 +2,7 @@
 	"name": "har-viewer",
 	"displayName": "HAR Viewer",
 	"description": "HTTP Archive Viewer",
-	"version": "0.0.1",
+	"version": "0.0.1-beta.0",
 	"publisher": "unclebeast",
 	"engines": {
 		"vscode": "^1.23.0"
