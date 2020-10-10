@@ -2,6 +2,8 @@ import * as crypto from "crypto";
 import { URL } from "url";
 const LZUTF8 = require("lzutf8");
 
+const SUPPORTED_TYPES = ['boolean', 'number', 'string', 'bigint', 'symbol'];
+
 export const getContentMap = (content: string) => {
     let contentMap: any = {};
     const data = JSON.parse(content);
@@ -39,16 +41,23 @@ export const trimApiNameFromUrl = (url: string): string => {
 
 const sanitizeValues = (object: any) => {
     var objectParsed: any = {};
+    if (!object) {
+        return objectParsed;
+    }
 
     var entries = Object.entries(object);
-
-    entries.forEach((element: any) => {
-        if (typeof element[1] === "string") {
-            objectParsed[element[0]] = Array.from(LZUTF8.compress(element[1]));
-        } else {
-            objectParsed[element[0]] = sanitizeValues(element[1]);
-        }
-    });
+    try {
+        entries.forEach((element: any) => {
+            if (SUPPORTED_TYPES.indexOf(typeof element[1]) !== -1) {
+                objectParsed[element[0]] = Array.from(LZUTF8.compress(element[1].toString()));
+            } else {
+                objectParsed[element[0]] = sanitizeValues(element[1]);
+            }
+        });
+    } catch (err) {
+        // Skip encoding error and continue encoding other objects
+        console.error('Encoding Error: Contact the authtor' ,err);
+    }
 
     return objectParsed;
 };
