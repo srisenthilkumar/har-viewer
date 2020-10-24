@@ -1,16 +1,16 @@
 /**
- * 
+ * View generator
  * @author srisenthilkumar, naveen 
  */
 import { template } from "../view/template";
-import { trimApiNameFromUrl } from "./util";
+import { extractApiName } from "./util";
 
 const buildNetworkCallsHtml = (apiList: any): string => {
   if (!apiList) {
     return `<p>No remote call entries found!</p>`;
   }
 
-  const remoteCallAnchorTag = `<div><a id={{hashValue}} class="list" onclick="showDetails(this.id)" title={{urlPath}}">{{apiName}}</a><span>{{apiMethod}}</span><div>`;
+  const remoteCallAnchorTag = `<a id={{hashValue}} class="list" onclick="showDetails(this.id)" title={{urlPath}}"><span class="badge">{{apiMethod}}</span> {{apiName}} </a>`;
 
   let aTagList = "";
 
@@ -18,7 +18,7 @@ const buildNetworkCallsHtml = (apiList: any): string => {
     (remoteCall: { url: string; method: string; key: string }) => {
       aTagList += remoteCallAnchorTag
         .replace("{{hashValue}}", remoteCall.key)
-        .replace("{{apiName}}", trimApiNameFromUrl(remoteCall.url))
+        .replace("{{apiName}}", extractApiName(remoteCall.url))
         .replace("{{apiMethod}}", remoteCall.method)
         .replace("{{urlPath}}", remoteCall.url);
     }

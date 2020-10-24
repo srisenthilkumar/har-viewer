@@ -22,21 +22,20 @@ export const getContentMap = (content: string) => {
     return { reqAPIs, contentMap: JSON.stringify(contentMap) };
 };
 
-export const trimApiNameFromUrl = (url: string): string => {
-    if (!url || url === "/") {
-        return "/";
+export const extractApiName = (url: string): string => {
+
+    const names = url && url.split('?') || [];
+    const pathSubParts = names[0] && names[0].split('/') || [];
+    let index = pathSubParts.length;
+    let apiName = '';
+    while(index > 0) {
+        index--;
+        if(pathSubParts[index].trim().length > 1){
+            apiName = pathSubParts[index];
+            break;
+        }
     }
-    let filePath = url.substring(
-        url.lastIndexOf("/") + 1,
-        url.length
-    );
-    if (!filePath) {
-        return trimApiNameFromUrl(url.substring(0, url.length-1));
-    }
-    if (filePath.includes(".")) {
-        filePath = filePath.substring(0, filePath.indexOf("."));
-    }
-    return filePath;
+    return apiName;
 };
 
 const sanitizeValues = (object: any) => {

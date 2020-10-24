@@ -28,6 +28,8 @@ body {
     background-color: var(--vscode-activityBarBadge-background);
     color: var(--vscode-activityBarBadge-foreground);
     border-radius: 5px;
+    font-size: 9px;
+    padding: 2px 4px;
 }
 mark{
     background: orange;
@@ -37,8 +39,6 @@ mark{
     padding: 5px 5px;
     display: block;
     width: 100%;
-    /* background-color: rgba(0, 0, 0, 0.2); */
-    /* line-height: 150%; */
     margin: 2px 2px;
 }
 .list:hover, .list.active {
