@@ -1,5 +1,4 @@
 import * as crypto from "crypto";
-import { URL } from "url";
 const LZUTF8 = require("lzutf8");
 
 const SUPPORTED_TYPES = ['boolean', 'number', 'string', 'bigint', 'symbol'];
@@ -24,17 +23,18 @@ export const getContentMap = (content: string) => {
 };
 
 export const trimApiNameFromUrl = (url: string): string => {
-    const urlObj = new URL(url);
-    const pathname: string = urlObj.pathname;
-    if (!pathname || pathname === "/") {
-        return urlObj.hostname;
+    if (!url || url === "/") {
+        return "/";
     }
-    let filePath = pathname.substring(
-        pathname.lastIndexOf("/") + 1,
-        pathname.length
+    let filePath = url.substring(
+        url.lastIndexOf("/") + 1,
+        url.length
     );
+    if (!filePath) {
+        return trimApiNameFromUrl(url.substring(0, url.length-1));
+    }
     if (filePath.includes(".")) {
-        filePath = filePath.substring(0, filePath.lastIndexOf("."));
+        filePath = filePath.substring(0, filePath.indexOf("."));
     }
     return filePath;
 };

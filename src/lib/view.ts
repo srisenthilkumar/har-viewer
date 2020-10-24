@@ -10,8 +10,7 @@ const buildNetworkCallsHtml = (apiList: any): string => {
     return `<p>No remote call entries found!</p>`;
   }
 
-  const remoteCallAnchorTag = `<a id={{hashValue}} class="list" onclick="showDetails(this.id)">{{apiName}}</a>`;
-  //tooltip={{urlPath}} 
+  const remoteCallAnchorTag = `<div><a id={{hashValue}} class="list" onclick="showDetails(this.id)" title={{urlPath}}">{{apiName}}</a><span>{{apiMethod}}</span><div>`;
 
   let aTagList = "";
 
@@ -20,8 +19,8 @@ const buildNetworkCallsHtml = (apiList: any): string => {
       aTagList += remoteCallAnchorTag
         .replace("{{hashValue}}", remoteCall.key)
         .replace("{{apiName}}", trimApiNameFromUrl(remoteCall.url))
-        .replace("{{apiMethod}}", remoteCall.method);
-        //.replace("{{urlPath}}", remoteCall.url)
+        .replace("{{apiMethod}}", remoteCall.method)
+        .replace("{{urlPath}}", remoteCall.url);
     }
   );
 
