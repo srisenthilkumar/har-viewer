@@ -8,6 +8,10 @@
 		"name": "Sri senthil kumar",
 		"email": "asrisenthilkumar@gmail.com"
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/srisenthilkumar/har-viewer"
+	  },
 	"contributors": [
 		{
 			"name": "Sri senthil kumar",
@@ -21,7 +25,7 @@
 	],
 	"bugs": "https://github.com/srisenthilkumar/har-viewer/issues",
 	"engines": {
-		"vscode": "^1.23.0"
+		"vscode": "^1.45.0"
 	},
 	"categories": [
 		"Other"

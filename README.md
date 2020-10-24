@@ -13,7 +13,7 @@ A viewer to view the HAR file in a way it is similar to look through a network t
       - All OS: `Ctrl + F`
 
 #### Screenshots
-![Screenshots](docs/har-viewer.gif)
+![Screenshots](https://raw.githubusercontent.com/srisenthilkumar/har-viewer/master/docs/har-viewer.gif)
 
 ## Known Issues
 
