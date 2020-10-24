@@ -2,7 +2,7 @@
 	"name": "har-viewer",
 	"displayName": "HAR Viewer",
 	"description": "HTTP Archive Viewer",
-	"version": "0.0.1-beta.0",
+	"version": "0.0.1",
 	"publisher": "unclebeast",
 	"author": {
 		"name": "Sri senthil kumar",
