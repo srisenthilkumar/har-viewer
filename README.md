@@ -1,6 +1,6 @@
 # HAR viewer
 
-A viewer to view the HAR file in a way it is similar to look through a network tab in the browser's developer console. 
+An extension to view the HAR file in a way it is similar to look through a network tab in the browser's developer console. 
 
 ## Features
 
