@@ -8,3 +8,10 @@ UI update
 HAR viewer on Right click - 
 Performance check - Spike
 ReadMe to be updated - 
+
+
+#Ref
+https://code.visualstudio.com/api/references/contribution-points#contributes.configuration
+
+
+https://github.com/microsoft/vscode-extension-samples/blob/main/configuration-sample/package.json
