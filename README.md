@@ -24,6 +24,11 @@ If you find any issue or feature request, please add here.
 
 Users appreciate release notes as you update your extension.
 
+### 0.0.2
+
+- UI Updates
+- Configurable display option of API list
+
 ### 0.0.1 - Beta
 
 This is the initial release with basic features for user testing.
