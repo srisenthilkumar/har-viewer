@@ -1,5 +1,3 @@
-File format enhancement - move content to separate try / catch -> Friendly message on supported formats
-On crash -> store logs and add steps to retrieve the logs
 - File format enhancement - move content to separate try / catch -> Friendly message on supported formats
 - On crash -> store logs and add steps to retrieve the logs
 - UI update
