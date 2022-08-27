@@ -28,9 +28,6 @@ export function activate(context: vscode.ExtensionContext) {
 		try {
 			const { reqAPIs, contentMap } = getContentMap(fileContent);
 
-			const configuration = vscode.workspace.getConfiguration('harViewer');
-			let confvalue = configuration.get('pathNamingConvention');
-
 			let panel = vscode.window.createWebviewPanel(
 				'har-viewer',
 				'View' + activeDocument.fileName,

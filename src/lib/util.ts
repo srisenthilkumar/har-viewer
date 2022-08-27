@@ -1,5 +1,6 @@
 import * as crypto from "crypto";
 const LZUTF8 = require("lzutf8");
+import { config, ApiPathNamingType } from './configuration';
 
 const SUPPORTED_TYPES = ['boolean', 'number', 'string', 'bigint', 'symbol'];
 
@@ -22,19 +23,43 @@ export const getContentMap = (content: string) => {
     return { reqAPIs, contentMap: JSON.stringify(contentMap) };
 };
 
+const getLastPortionOfPath = (pathSubParts:Array<string>) : string => {
+    let index = pathSubParts.length;
+    while(index > 0) {
+        index--;
+        if(pathSubParts[index].trim().length > 1){
+            return pathSubParts[index];
+        }
+    }
+    return pathSubParts.join('/');
+}; 
+
+const getRelativePath = (pathSubParts:Array<string>) : string => {
+    pathSubParts.shift();
+    return pathSubParts.join('/');
+}; 
+
 export const extractApiName = (url: string): string => {
 
     const names = url && url.split('?') || [];
     const pathSubParts = names[0] && names[0].split('/') || [];
-    let index = pathSubParts.length;
+    
     let apiName = '';
-    while(index > 0) {
-        index--;
-        if(pathSubParts[index].trim().length > 1){
-            apiName = pathSubParts[index];
+
+    const apiPathNamingConvention : ApiPathNamingType = config.get(config.constants.API_NAMING_CONVENTION_KEY) as ApiPathNamingType;
+
+    switch(String(apiPathNamingConvention)) {
+        case ApiPathNamingType.RELATIVE:
+            apiName = getRelativePath(pathSubParts);
             break;
-        }
+        case ApiPathNamingType.LAST_PORTION: 
+            apiName = getLastPortionOfPath(pathSubParts);
+            break;
+        case ApiPathNamingType.FULL: 
+        default:
+            apiName = pathSubParts.join('/');
     }
+   
     return apiName;
 };
 
