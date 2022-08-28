@@ -157,9 +157,8 @@ function closeFinder() {
     $(".finder").hide();
 }
 $(document).keypress('f', function (e) {
-    if (event.ctrlKey) {
         $(".finder").show();
-        $(".finder input").focus();
-    }
+        var searchBox = $(".finder input");
+        searchBox.focus();
 });
 $(".finder").hide();

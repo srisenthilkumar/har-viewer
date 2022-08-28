@@ -3,9 +3,9 @@ body {
     color: var(--vscode-editor-foreground);
     font-family: var(--vscode-font-family);
     font-weight: var(--vscode-font-weight);
-    font-size: var(--vscode-font-size);
+    font-size: var(--vscode-font-size - 2);
     margin: 0;
-    padding: 0 20px;
+    padding: 0 5px;
 }
 .finder {
     display: block;
@@ -27,9 +27,12 @@ body {
 .badge {
     background-color: var(--vscode-activityBarBadge-background);
     color: var(--vscode-activityBarBadge-foreground);
+    display: inline-block;
+    width: 30px;
     border-radius: 5px;
     font-size: 9px;
     padding: 2px 4px;
+    text-align: center;
 }
 mark{
     background: orange;
@@ -38,11 +41,17 @@ mark{
 .list {
     padding: 5px 5px;
     display: block;
+    word-break: break-all;
     width: 100%;
-    margin: 2px 2px;
+    margin: 2px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5) ;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.list:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .list:hover, .list.active {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 a {
     cursor: pointer;
@@ -58,6 +67,8 @@ a {
     max-height: 98vh;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding: 0px 3px;
+    margin-right: 2px;
 }
 
 /* width */
@@ -98,6 +109,11 @@ p.code textarea{
 .gutter.gutter-horizontal {
     cursor: ew-resize;
     background-color: var(--vscode-dropdown-background);
+    flex-basis: 5px!important;
+}
+
+.gutter.gutter-horizontal:hover {
+    background-color: #5050DB;
 }
 
 .tab {

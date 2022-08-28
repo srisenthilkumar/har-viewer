@@ -11,7 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "har-viewer" is now active!');
+	// console.log('Congratulations, your extension "har-viewer" is now active!');
 
 	vscode.window.showInformationMessage('Loading ...');
 	let preview = vscode.commands.registerCommand('har-viewer.preview', () => {
@@ -27,7 +27,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 		try {
 			const { reqAPIs, contentMap } = getContentMap(fileContent);
-
 
 			let panel = vscode.window.createWebviewPanel(
 				'har-viewer',
