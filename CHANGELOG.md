@@ -4,7 +4,7 @@ All notable changes to the "har-viewer" extension will be documented in this fil
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## 0.0.2
+## [Unreleased]
 
 - UI Updates
 - Configurable display option of API list
