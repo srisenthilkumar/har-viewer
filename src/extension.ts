@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { render } from './lib/index';
-import { getContentMap, getErrorMessage } from './lib/util';
+import { getContentMap, getErrorDetails } from './lib/util';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -36,7 +36,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 		} catch (err) {
 			logChannel.appendLine("File parsing error");
-			logChannel.appendLine(getErrorMessage(err));
+			const {message, stack=''} = getErrorDetails(err);
+			logChannel.appendLine(message);
+			logChannel.appendLine(stack);
 			logChannel.show();
 			vscode.window.showErrorMessage('Hmm! File Parsing error, please raise an issue at https://github.com/srisenthilkumar/har-viewer/issues with log');
 			return;
@@ -44,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		let panel = vscode.window.createWebviewPanel(
 			'har-viewer',
-			'View' + activeDocument.fileName,
+			'View ' + activeDocument.fileName,
 			vscode.ViewColumn.One,
 			{
 				enableScripts: true
