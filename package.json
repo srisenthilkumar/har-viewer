@@ -2,11 +2,16 @@
   "name": "har-viewer",
   "displayName": "HAR Viewer",
   "description": "HTTP Archive Viewer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "unclebeast",
   "author": {
     "name": "Sri senthil kumar",
     "email": "asrisenthilkumar@gmail.com"
+  },
+  "icon": "images/icon.png",
+  "galleryBanner": {
+	  "color": "#232323",
+	  "theme": "dark"
   },
   "repository": {
     "type": "git",

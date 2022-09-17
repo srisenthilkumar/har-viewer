@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { render } from './lib/index';
-import { getContentMap } from './lib/util';
+import { getContentMap, getErrorDetails } from './lib/util';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -25,43 +25,57 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
+		let logChannel = vscode.window.createOutputChannel("har-viewer");
+
+		let reqAPIs, contentMap;
+
 		try {
-			const { reqAPIs, contentMap } = getContentMap(fileContent);
-
-			let panel = vscode.window.createWebviewPanel(
-				'har-viewer',
-				'View' + activeDocument.fileName,
-				vscode.ViewColumn.One,
-				{
-					enableScripts: true
-				}
-			);
-
-			const harCssPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'css', 'har.css'));
-			const harCss = panel.webview.asWebviewUri(harCssPath);
-
-			const harJsPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'js', 'har.js'));
-			const harJs = panel.webview.asWebviewUri(harJsPath);
-
-			const splitJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
-			const splitJs = panel.webview.asWebviewUri(splitJsPath);
-
-			const jqueryMarkJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery.mark.js'));
-			const jqueryMarkJs = panel.webview.asWebviewUri(jqueryMarkJsPath);
-
-			const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery-3.5.1.slim.min.js'));
-			const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
-
-			const lzutf8Path = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/lzutf8.min.js'));
-			const lzutf8Js = panel.webview.asWebviewUri(lzutf8Path);
-
-			const uiBundleObj = { harCss, harJs, jqueryJs, splitJs, jqueryMarkJs, lzutf8Js };
-
-			panel.webview.html = render(activeDocument.fileName, reqAPIs, contentMap, uiBundleObj);
+			const parsedData = getContentMap(fileContent);
+			reqAPIs = parsedData.reqAPIs;
+			contentMap = parsedData.contentMap;
 
 		} catch (err) {
-			vscode.window.showErrorMessage('Hmm! File content is not loaded, please raise an issue at https://github.com/srisenthilkumar/har-viewer/issues');
+			logChannel.appendLine("File parsing error");
+			const {message, stack=''} = getErrorDetails(err);
+			logChannel.appendLine(message);
+			logChannel.appendLine(stack);
+			logChannel.show();
+			vscode.window.showErrorMessage('Hmm! File Parsing error, please raise an issue at https://github.com/srisenthilkumar/har-viewer/issues with log');
+			return;
 		}
+
+		let panel = vscode.window.createWebviewPanel(
+			'har-viewer',
+			'View ' + activeDocument.fileName,
+			vscode.ViewColumn.One,
+			{
+				enableScripts: true
+			}
+		);
+
+		const harCssPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'css', 'har.css'));
+		const harCss = panel.webview.asWebviewUri(harCssPath);
+
+		const harJsPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'js', 'har.js'));
+		const harJs = panel.webview.asWebviewUri(harJsPath);
+
+		const splitJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
+		const splitJs = panel.webview.asWebviewUri(splitJsPath);
+
+		const jqueryMarkJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery.mark.js'));
+		const jqueryMarkJs = panel.webview.asWebviewUri(jqueryMarkJsPath);
+
+		const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery-3.5.1.slim.min.js'));
+		const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
+
+		const lzutf8Path = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/lzutf8.min.js'));
+		const lzutf8Js = panel.webview.asWebviewUri(lzutf8Path);
+
+		const uiBundleObj = { harCss, harJs, jqueryJs, splitJs, jqueryMarkJs, lzutf8Js };
+
+		panel.webview.html = render(activeDocument.fileName, reqAPIs, contentMap, uiBundleObj);
+
+
 
 	});
 

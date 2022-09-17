@@ -23,43 +23,43 @@ export const getContentMap = (content: string) => {
     return { reqAPIs, contentMap: JSON.stringify(contentMap) };
 };
 
-const getLastPortionOfPath = (pathSubParts:Array<string>) : string => {
+const getLastPortionOfPath = (pathSubParts: Array<string>): string => {
     let index = pathSubParts.length;
-    while(index > 0) {
+    while (index > 0) {
         index--;
-        if(pathSubParts[index].trim().length > 1){
+        if (pathSubParts[index].trim().length > 1) {
             return pathSubParts[index];
         }
     }
     return pathSubParts.join('/');
-}; 
+};
 
-const getRelativePath = (pathSubParts:Array<string>) : string => {
+const getRelativePath = (pathSubParts: Array<string>): string => {
     pathSubParts.shift();
     return pathSubParts.join('/');
-}; 
+};
 
 export const extractApiName = (url: string): string => {
 
     const names = url && url.split('?') || [];
     const pathSubParts = names[0] && names[0].split('/') || [];
-    
+
     let apiName = '';
 
-    const apiPathNamingConvention : ApiPathNamingType = config.get(config.constants.API_NAMING_CONVENTION_KEY) as ApiPathNamingType;
+    const apiPathNamingConvention: ApiPathNamingType = config.get(config.constants.API_NAMING_CONVENTION_KEY) as ApiPathNamingType;
 
-    switch(String(apiPathNamingConvention)) {
+    switch (String(apiPathNamingConvention)) {
         case ApiPathNamingType.RELATIVE:
             apiName = getRelativePath(pathSubParts);
             break;
-        case ApiPathNamingType.LAST_PORTION: 
+        case ApiPathNamingType.LAST_PORTION:
             apiName = getLastPortionOfPath(pathSubParts);
             break;
-        case ApiPathNamingType.FULL: 
+        case ApiPathNamingType.FULL:
         default:
             apiName = pathSubParts.join('/');
     }
-   
+
     return apiName;
 };
 
@@ -80,8 +80,19 @@ const sanitizeValues = (object: any) => {
         });
     } catch (err) {
         // Skip encoding error and continue encoding other objects
-        console.error('Encoding Error: Contact the authtor' ,err);
+        console.error('Encoding Error: Contact the authtor', err);
     }
 
     return objectParsed;
+};
+
+
+export const getErrorDetails = (error: any) => {
+    let message, stack;
+    if (error instanceof Error) {
+        message = error.message;
+        stack = error.stack;
+    }
+    else { message = String(error); }
+    return { message, stack };
 };
