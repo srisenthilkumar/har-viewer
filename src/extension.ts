@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { render } from './lib/index';
-import { getContentMap, getErrorDetails } from './lib/util';
+import { getContentMap, getErrorDetails, getDocument } from './lib/util';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -14,72 +14,70 @@ export function activate(context: vscode.ExtensionContext) {
 	// console.log('Congratulations, your extension "har-viewer" is now active!');
 
 	vscode.window.showInformationMessage('Loading ...');
-	let preview = vscode.commands.registerCommand('har-viewer.preview', () => {
+	let preview = vscode.commands.registerCommand('har-viewer.preview', (params) => {
 
-		const activeDocument = vscode.window.activeTextEditor?.document;
-		const fileName = activeDocument?.fileName;
-		const fileContent = activeDocument?.getText();
+		getDocument(params?.path, vscode.window.activeTextEditor?.document).then((activeDocument) => {
+			const fileName = activeDocument?.fileName;
+			const fileContent = activeDocument?.getText();
 
-		if (!fileContent || !activeDocument) {
-			vscode.window.showErrorMessage(fileName + " doesn't seem to be valid file");
-			return;
-		}
-
-		let logChannel = vscode.window.createOutputChannel("har-viewer");
-
-		let reqAPIs, contentMap;
-
-		try {
-			const parsedData = getContentMap(fileContent);
-			reqAPIs = parsedData.reqAPIs;
-			contentMap = parsedData.contentMap;
-
-		} catch (err) {
-			logChannel.appendLine("File parsing error");
-			const {message, stack=''} = getErrorDetails(err);
-			logChannel.appendLine(message);
-			logChannel.appendLine(stack);
-			logChannel.show();
-			vscode.window.showErrorMessage('Hmm! File Parsing error, please raise an issue at https://github.com/srisenthilkumar/har-viewer/issues with log');
-			return;
-		}
-
-		let panel = vscode.window.createWebviewPanel(
-			'har-viewer',
-			'View ' + activeDocument.fileName,
-			vscode.ViewColumn.One,
-			{
-				enableScripts: true
+			if (!fileContent || !activeDocument) {
+				vscode.window.showErrorMessage(fileName + " doesn't seem to be valid file");
+				return;
 			}
-		);
 
-		const harCssPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'css', 'har.css'));
-		const harCss = panel.webview.asWebviewUri(harCssPath);
+			let logChannel = vscode.window.createOutputChannel("har-viewer");
 
-		const harJsPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'js', 'har.js'));
-		const harJs = panel.webview.asWebviewUri(harJsPath);
+			let reqAPIs, contentMap;
 
-		const splitJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
-		const splitJs = panel.webview.asWebviewUri(splitJsPath);
+			try {
+				const parsedData = getContentMap(fileContent);
+				reqAPIs = parsedData.reqAPIs;
+				contentMap = parsedData.contentMap;
 
-		const jqueryMarkJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery.mark.js'));
-		const jqueryMarkJs = panel.webview.asWebviewUri(jqueryMarkJsPath);
+			} catch (err) {
+				logChannel.appendLine("File parsing error");
+				const { message, stack = '' } = getErrorDetails(err);
+				logChannel.appendLine(message);
+				logChannel.appendLine(stack);
+				logChannel.show();
+				vscode.window.showErrorMessage('Hmm! File Parsing error, please raise an issue at https://github.com/srisenthilkumar/har-viewer/issues with log');
+				return;
+			}
 
-		const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery-3.5.1.slim.min.js'));
-		const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
+			let panel = vscode.window.createWebviewPanel(
+				'har-viewer',
+				'View ' + activeDocument.fileName,
+				vscode.ViewColumn.One,
+				{
+					enableScripts: true
+				}
+			);
 
-		const lzutf8Path = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/lzutf8.min.js'));
-		const lzutf8Js = panel.webview.asWebviewUri(lzutf8Path);
+			const harCssPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'css', 'har.css'));
+			const harCss = panel.webview.asWebviewUri(harCssPath);
 
-		const uiBundleObj = { harCss, harJs, jqueryJs, splitJs, jqueryMarkJs, lzutf8Js };
+			const harJsPath = vscode.Uri.file(path.join(context.extensionPath, 'ui-bundle', 'js', 'har.js'));
+			const harJs = panel.webview.asWebviewUri(harJsPath);
 
-		panel.webview.html = render(activeDocument.fileName, reqAPIs, contentMap, uiBundleObj);
+			const splitJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/split.min.js'));
+			const splitJs = panel.webview.asWebviewUri(splitJsPath);
 
+			const jqueryMarkJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery.mark.js'));
+			const jqueryMarkJs = panel.webview.asWebviewUri(jqueryMarkJsPath);
 
+			const jqueryJsPath = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/jquery-3.5.1.slim.min.js'));
+			const jqueryJs = panel.webview.asWebviewUri(jqueryJsPath);
 
+			const lzutf8Path = vscode.Uri.file(path.join(context.extensionPath, './ui-bundle/js/lzutf8.min.js'));
+			const lzutf8Js = panel.webview.asWebviewUri(lzutf8Path);
+
+			const uiBundleObj = { harCss, harJs, jqueryJs, splitJs, jqueryMarkJs, lzutf8Js };
+
+			panel.webview.html = render(activeDocument.fileName, reqAPIs, contentMap, uiBundleObj);
+		});
+
+		context.subscriptions.push(preview);
 	});
-
-	context.subscriptions.push(preview);
 }
 
 // this method is called when your extension is deactivated

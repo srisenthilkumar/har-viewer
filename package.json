@@ -47,6 +47,22 @@
         "category": "HAR Viewer"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceExtname == .har",
+          "command": "har-viewer.preview",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceExtname == .har",
+          "command": "har-viewer.preview",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": [
       {
         "title": "HAR VIEWER",
