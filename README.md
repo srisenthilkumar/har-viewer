@@ -8,6 +8,8 @@ An extension to view the HAR file in a way it is similar to look through a netwo
   * Keys shortcut
       - windows : `Ctrl+Shift+P`
       - mac : `Cmd+Shift+P`
+  * From Explorer - right click on the file and select "Preview" to view in HAR Viewer
+  * On Editor once file is opened, click on the "Preview" to view in HAR Viewer
 * Search content
   * Keys shortcut
       - All OS: `Start typing it appears automatically :)`
@@ -30,6 +32,9 @@ Users appreciate release notes as you update your extension.
 - Configurable display option of API list
 - Added logs for better debugging the issue
 - Search update
+- View file from,
+        - Explorer right click and "Preview" to view in HAR Viewer
+        - On Editor, click "Preview" to view in HAR Viewer
 
 ### 0.0.1 - Beta
 

@@ -1,4 +1,5 @@
 import * as crypto from "crypto";
+import { TextDocument, workspace } from "vscode";
 const LZUTF8 = require("lzutf8");
 import { config, ApiPathNamingType } from './configuration';
 
@@ -95,4 +96,18 @@ export const getErrorDetails = (error: any) => {
     }
     else { message = String(error); }
     return { message, stack };
+};
+
+export const getDocument = (path: string, document?: TextDocument): Promise<TextDocument> => {
+    const fetchDocument = new Promise<TextDocument>((resolve, reject) => {
+        if (document) {
+            return resolve(document);
+        }
+        else {
+            return workspace.openTextDocument(path).then((document) => {
+                resolve(document);
+            });
+        }
+    });
+    return fetchDocument;
 };
